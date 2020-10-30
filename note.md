@@ -104,7 +104,9 @@ ecsに最適化されたAMIである。ECSでAWS Marketplaceで検索すれば�
 
 ## Route53　ドメイン取得
 
-任意のドメインを取得する。サブドメインが必要な場合はこちらで登録する。
+任意のドメインを取得する。
+- サブドメインが必要な場合はこちらで登録する
+-
 
 ## ACM(Certificate Manager) SSL証明書の発行
 
@@ -112,26 +114,33 @@ ecsに最適化されたAMIである。ECSでAWS Marketplaceで検索すれば�
 - DNS validation
 - SSLの証明書の検証をするためのドメインを自動で作ってくれる
 
+## EC2
+
+### Target Groups
+
+target groupを作成する
+- ProtocolはHTTP
+- Health checksはDRFの場合、pathが"/"でSuccess codesが400
+
 ### Load Balancers
 
 - internet facing
 - ListenersはHTTPS
 - Availability Zonesは作っておいたsubnet３つ
--
-
-### Target Groups
-
-- target groupを作成する
+- Certificateはacmから、作っておいた証明書を使う
 
 ### Route53 ドメインをALBに割り当て
+
 作ったALB(Application Load Balancer)にドメインを割り当てる。
 
 ## ECR　コンテナをpush
+
 Amazon Elastic Container Registry (ECR) は、完全マネージド型の Docker コンテナレジストリです。このレジストリを使うと、開発者は Docker コンテナイメージを簡単に保存、管理、デプロイできます。
 
 ECRにイメージをpushして登録
 
 ## ECS
+
 フルマネージド型のコンテナオーケストレーションサービス
 dockerをローカルで使うのは簡単だが、複数のクラスタ(ec2 インスタンス群) 上で管理するのは大変
 それをマネージしてくれるのがecs、コンテナの管理、配置などをよしなにしてくれる
@@ -153,11 +162,31 @@ create new task definition
 
 create service
 - launch typeはec2
-- Load balancer typeはApplication Load Balancer
+- Load balancer typeはApplication Load Balancerで作っておいたlgを指定する
+- Add to Load Balancerで作っておいたtgを指定する
 
+Run new Task
+- task definitionを使ってtaskを走らせる
+
+
+## テスト
+
+ここまで出来たらドメインにアクセスして正常に表示されるかチェックする。
+出来ていない場合はCloud WatchのLog gropusなどでlogを確認してデバッグする。
+
+## Circle CIで自動デプロイ
+
+kts_apiやactaba_apiの.circleci/config.ymlを参考にして書く
+circle_sha1でイメージversionをユニークに
+masterブランチのみデプロイ
+circle ciでawsのアクセスtokenなどを登録、aws系は全部必要になる
 
 
 # 参考
+
+Amazon Web Services 基礎からのネットワーク＆サーバー構築　改訂3版 Kindle版
+https://www.amazon.co.jp/Amazon-Web-Services-%E5%9F%BA%E7%A4%8E%E3%81%8B%E3%82%89%E3%81%AE%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%EF%BC%86%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E6%A7%8B%E7%AF%89-%E6%94%B9%E8%A8%823%E7%89%88-%E5%A4%A7%E6%BE%A4-ebook/dp/B084QQ7TCF/ref=sr_1_5?__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&dchild=1&keywords=aws&qid=1602238206&sr=8-5
+
 ecsについて
 
 https://qiita.com/uzresk/items/6acc90e80b0a79b961ce
