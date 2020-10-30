@@ -181,14 +181,24 @@ circle_sha1でイメージversionをユニークに
 masterブランチのみデプロイ
 circle ciでawsのアクセスtokenなどを登録、aws系は全部必要になる
 
-
 # 参考
 
 Amazon Web Services 基礎からのネットワーク＆サーバー構築　改訂3版 Kindle版
+
 https://www.amazon.co.jp/Amazon-Web-Services-%E5%9F%BA%E7%A4%8E%E3%81%8B%E3%82%89%E3%81%AE%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%EF%BC%86%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E6%A7%8B%E7%AF%89-%E6%94%B9%E8%A8%823%E7%89%88-%E5%A4%A7%E6%BE%A4-ebook/dp/B084QQ7TCF/ref=sr_1_5?__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&dchild=1&keywords=aws&qid=1602238206&sr=8-5
+
+
+SSL証明書周り
+
+https://qiita.com/iwaseasahi/items/1687426add4124899fe3
+
+https://qiita.com/keitakn/items/4b2db95eae81044a779c
 
 ecsについて
 
 https://qiita.com/uzresk/items/6acc90e80b0a79b961ce
 
 https://qiita.com/NewGyu/items/9597ed2eda763bd504d7#:~:text=%25E3%2582%25AF%25E3%2583%25A9%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2581%25AFContainer%2520Instance%25E3%25
+
+ハードとソフトリミットについて
+https://qiita.com/omukaik/items/66ad4181eb13531f9c4a
